@@ -10,7 +10,45 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: [{
+      context: [
+        // '/api',
+        // '/management',
+        // '/swagger-resources',
+        // '/v2/api-docs',
+        // '/h2-console',
+        // '/auth'
+        '/auth/login',
+        '/auth/logout',
+        '/uaa/api',
+        '/api/authenticate',
+        '/cart/api',
+        '/order/api',
+        '/product/api',
+        '/boss/api',
+        '/member/api',
+        '/seller/api',
+        '/settle/api',
+        '/base/api',
+        '/car/api',
+        '/home/api',
+        '/contentm/api',
+        '/notify/api',
+        '/news/api',
+        '/pay/api',
+        '/community/api',
+        '/activity/api',
+        '/store/api',
+        '/settlements/api',
+        '/system/api',
+        '/upgrade/api'
+      ],
+      target: 'http://m.d-hu.cn',  //目标接口域名
+      changeOrigin: true,  //是否跨域
+      pathRewrite: {
+        '^/api': ''   //重写接口
+      }
+    }],
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST

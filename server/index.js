@@ -18,6 +18,6 @@ koa.use(async (ctx, next) => {
 })
 
 module.exports = function() {
-    console.log('server 3000 start...')
+    console.log('server port:3000 start...')
     koa.listen(3000);
 }

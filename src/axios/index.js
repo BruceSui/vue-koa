@@ -1,6 +1,7 @@
 import axios from 'axios'
+import router from '../router'
 
-axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.baseURL = 'http://localhost:8080'
 // 添加一个请求拦截器
 axios.interceptors.request.use(function (config) {
   // Do something before request is sent
@@ -18,6 +19,9 @@ axios.interceptors.response.use(function (response) {
 }, function (error) {
   // Do something with response error
   console.log(error);
+  if (error.response.status === 401) {
+    router.push({ path: '/Login' })
+  }
   return Promise.reject(error);
 });
 
