@@ -1,3 +1,4 @@
+const axios = require('axios');
 const Koa = require('koa');
 const koa = new Koa();
 
@@ -10,6 +11,15 @@ koa.use(async (ctx, next) => {
     }
     if (ctx.request.path === '/user') {
         ctx.response.body = user;
+    } else if(ctx.request.path === '/product') {
+        // let url = 'http://39.106.198.77:8100/product/api/product/getProductDetailById?productId=1';
+        let url = 'http://39.106.198.77:8100/home/api/floor-index';
+        await axios.post(url, {}).then(response => {
+            console.log(response.data)
+            ctx.response.body = response.data;
+        }).catch(error => {
+            console.log(error)
+        })
     }
     new Promise(() => {
         user.id++;

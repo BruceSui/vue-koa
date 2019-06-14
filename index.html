@@ -8,5 +8,36 @@
   <body>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <button onclick="jqtest()">button</button>
   </body>
+  <script>
+    let url = location.search;
+    let params;
+    if(~url.indexOf('?')) {
+      params = url.substring('?').substring(1).split('&');
+      console.log(params);
+    }
+    function jqtest() {
+      let a = $('button');
+      console.log(a);
+      $.ajax({
+        async : true,
+        url : "http://m.d-hu.cn/boss/api/getDemand?page=0&size=20",
+        type : "POST",
+        dataType : "json", // 返回的数据类型，设置为JSONP方式
+        // jsonp : 'callback', //指定一个查询参数名称来覆盖默认的 jsonp 回调参数名 callback
+        // jsonpCallback: 'handleResponse', //设置回调函数名
+        // contentType: "application/json",
+        data : {
+        },
+        success: function(data){
+        
+        },error : function() {
+	 				//请求失败处理函数
+	 				alert('请求失败！');
+	 			}
+      });
+    }
+  </script>
 </html>

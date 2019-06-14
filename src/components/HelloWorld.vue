@@ -87,6 +87,8 @@
 export default {
   name: 'HelloWorld',
   data () {
+    console.log(this.$route.query);
+    console.log(this.$route.params);
     return {
       msg: 'Welcome to Your Vue.js App'
     }

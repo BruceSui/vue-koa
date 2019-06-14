@@ -41,9 +41,10 @@ module.exports = {
         '/store/api',
         '/settlements/api',
         '/system/api',
-        '/upgrade/api'
+        '/upgrade/api',
+        '/seller/system/getUser'
       ],
-      target: 'http://m.d-hu.cn',  //目标接口域名
+      target: 'http://localhost:8889',  //目标接口域名
       changeOrigin: true,  //是否跨域
       pathRewrite: {
         '^/api': ''   //重写接口

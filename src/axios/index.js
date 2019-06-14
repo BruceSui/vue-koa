@@ -20,7 +20,7 @@ axios.interceptors.response.use(function (response) {
   // Do something with response error
   console.log(error);
   if (error.response.status === 401) {
-    router.push({ path: '/Login' })
+    router.push({ path: '/HelloWorld', query: { id: 123 }, params: { name: 'asd' } })
   }
   return Promise.reject(error);
 });
