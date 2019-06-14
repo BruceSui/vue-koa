@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>分享</title>
+    </head>
+    <body>
+        <div id="app">
+            {{ message }}
+        </div>
+            <div id="app-2">
+                    <span v-bind:title="message">
+                      鼠标悬停几秒钟查看此处动态绑定的提示信息！
+                    </span>
+                  </div>
+    </body>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 生产环境版本，优化了尺寸和速度 -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+    <script>
+        console.log(1);
+        // let url = 'http://39.106.198.77:8100/product/api/product/getProductDetailById?productId=1';
+        let url = 'http://localhost:3000/product';
+        let message = '22';
+        http();
+        function http() {
+            axios.get(url).then(response => {
+                // console.log(response);
+                // console.log(response.data);
+                let data = response.data;
+                message = data;
+                let app = document.querySelector('#app');
+                app.innerHTML = JSON.stringify(data);
+            }).catch(error => {
+                console.log(error)
+            });
+        }
+        // let app = new Vue({
+        //     el: '#app',
+        //     data() {
+        //         return {
+        //             message: data
+        //         }
+        //     }
+        // })
+        // let url = location.search;
+        // let params;
+        // if(~url.indexOf('?')) {
+        //     params = url.substring('?').substring(1).split('&');
+        //     console.log(params);
+        // }
+    </script>
+</html>
