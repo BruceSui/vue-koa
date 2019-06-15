@@ -12,9 +12,9 @@ koa.use(async (ctx, next) => {
     if (ctx.request.path === '/user') {
         ctx.response.body = user;
     } else if(ctx.request.path === '/product') {
-        // let url = 'http://39.106.198.77:8100/product/api/product/getProductDetailById?productId=1';
-        let url = 'http://39.106.198.77:8100/home/api/floor-index';
-        await axios.post(url, {}).then(response => {
+        let url = 'http://39.106.198.77:8100/product/api/product/getProductDetailById?productId=1';
+        // let url = 'http://39.106.198.77:8100/home/api/floor-index';
+        await axios.get(url).then(response => {
             console.log(response.data)
             ctx.response.body = response.data;
         }).catch(error => {

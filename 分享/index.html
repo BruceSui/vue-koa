@@ -4,48 +4,85 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <title>分享</title>
+        <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+        <!-- 新 Bootstrap4 核心 CSS 文件 -->
+        <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+        <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+        <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+        <style>
+            img {
+                width: 100%;
+                height: 400px;
+                object-fit: cover;
+            }
+        </style>
     </head>
     <body>
         <div id="app">
-            {{ message }}
-        </div>
-            <div id="app-2">
-                    <span v-bind:title="message">
-                      鼠标悬停几秒钟查看此处动态绑定的提示信息！
-                    </span>
-                  </div>
+            <div id="carouselBanner" class="carousel slide" data-ride="carousel">
+                <div class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item" :class="{active: index == 0}"  v-for="(pic, index) in product.productPictureList">
+                            <img :src="pic.imagePath">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselBanner" data-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselBanner" data-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </a>
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselBanner" :data-slide-to="index" :class="{active: index == 0}"  v-for="(pic, index) in product.productPictureList"></li>
+                    </ol>
+                </div>
+            </div>
+            <div id="description"></div>
+      </div>
     </body>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <!-- 生产环境版本，优化了尺寸和速度 -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script>
-        console.log(1);
-        // let url = 'http://39.106.198.77:8100/product/api/product/getProductDetailById?productId=1';
+        axios.default.withCredentials = true;
+        Vue.$axios = axios;
         let url = 'http://localhost:3000/product';
-        let message = '22';
-        http();
-        function http() {
-            axios.get(url).then(response => {
-                // console.log(response);
-                // console.log(response.data);
-                let data = response.data;
-                message = data;
-                let app = document.querySelector('#app');
-                app.innerHTML = JSON.stringify(data);
-            }).catch(error => {
-                console.log(error)
-            });
-        }
-        // let app = new Vue({
-        //     el: '#app',
-        //     data() {
-        //         return {
-        //             message: data
-        //         }
-        //     }
-        // })
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                item: null,
+                product: {},
+            },
+            created: function() {
+                axios.get(url).then(response => {
+                    vm.product = response.data.data;
+                    console.log(vm.product);
+                    let picArr = vm.product.productPictureList;
+                    let box = document.querySelector('.carousel-inner');
+                    // picArr.forEach(element => {
+                    //     box.innerHTML += '<div class="carousel-item">'
+                    //         + '<img src="' + element.imagePath + '">'
+                    //         + '</div>';
+                    // });
+                    let item = document.querySelector('.carousel-item');
+                    if (item) {
+                        item.classList.add('active');
+                    }
+
+                    let keys = Object.keys(vm.product);
+                    keys.forEach(key => {
+                        let container = document.querySelector('#' + key);
+                        if (container) {
+                            container.innerHTML = vm.product[key]
+                        } else {
+                            
+                        }
+                    })
+                }).catch(error => {
+                    console.log(error)
+                });
+            }
+        })
         // let url = location.search;
         // let params;
         // if(~url.indexOf('?')) {
@@ -53,4 +90,5 @@
         //     console.log(params);
         // }
     </script>
+    
 </html>
